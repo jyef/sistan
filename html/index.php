@@ -1,3 +1,25 @@
+<?php
+require('dbconnect.php');
+
+$sjis = file_get_contents('./sistan.csv');
+$utf8 = mb_convert_encoding($sjis, 'UTF-8', 'SJIS-win');
+file_put_contents('./utf8.csv', $utf8);
+
+$f = fopen("./utf8.csv", "r");
+
+while($line = fgetcsv($f)){
+    //重複チェック
+    $id = $db->prepare('SELECT count(*) AS cnt FROM mytable WHERE id=?');
+    $id->execute(array($line[0]));
+    $count = $id->fetch();
+    //重複していなかったらインサート
+    if ($count['cnt'] === '0') {
+        $statement = $db->prepare('INSERT INTO mytable SET id=?, enwords=?, jpwords=?');
+        $statement->execute(array($line[0], $line[1], $line[2]));
+    }
+}
+fclose($f);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,27 +28,6 @@
     <title>Document</title>
 </head>
 <body>
-<!-- <?php
-try {
-    $db = new PDO('mysql:dbname=mydb;host=db;charset=utf8','root','root');
-} catch (PDOException $e) {
-    echo 'DB接続エラー： ' . $e->getMessage();
-}
 
-$count = $db->exec('INSERT INTO test SET name="幸子"');
-echo $count . '件のデータを挿入しました';
-?> -->
-<?php
-$sjis = file_get_contents('./sistan.csv');
-$utf8 = mb_convert_encoding($sjis, 'UTF-8', 'SJIS-win');
-file_put_contents('./utf8.csv', $utf8);
-
-$f = fopen("./utf8.csv", "r");
-
-while($line = fgetcsv($f)){
-    var_dump($line);
-}
-fclose($f);
-?>
 </body>
 </html>
