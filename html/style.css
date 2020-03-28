@@ -1,0 +1,44 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+.questiontable {
+  margin: 0 auto;
+  margin-bottom: 500px;
+  border-collapse: collapse;
+}
+
+.questiontable th, .questiontable td {
+  border: 1px solid #ccc;
+}
+
+.questiontable .id {
+  padding: 0 5px 0 5px;
+  color: #ddd;
+}
+
+.questiontable .enwords {
+  padding-right: 5px;
+  width: 200px;
+  text-align: right;
+}
+
+.questiontable .jpwords {
+  width: 300px;
+  padding-left: 20px;
+}
+
+.questiontable .jpwords:hover {
+  cursor: text;
+}
+
+.jpcontents {
+  width: 100%;
+  opacity: 0;
+}
+
+.jpcontents.disp {
+  opacity: 1;
+}
+/*# sourceMappingURL=style.css.map */
