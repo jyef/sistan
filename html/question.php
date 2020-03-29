@@ -12,7 +12,7 @@ if (isset($_POST['false'])) {
         $statement = $db->prepare('UPDATE mytable SET temp=true, perm=true WHERE id=?');
         $statement->execute(array($f));
     }
-    header('Location: review.php');
+    header('Location: tempreview.php');
     exit();
 }
 

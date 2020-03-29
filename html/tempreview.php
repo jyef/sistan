@@ -34,7 +34,7 @@ $words->execute();
                     </td>
                     <td class="jpwords">
                         <div class="jpcheck">
-                            <input type="checkbox" name="false[]" value="<?php print($word['id']); ?>">
+                            <input type="checkbox" name="false[]" value="<?php print($word['id']); ?>" checked>
                         </div>
                         <div class="jpcontents">
                             <div style="padding: 5px;">
