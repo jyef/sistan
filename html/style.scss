@@ -3,12 +3,17 @@
     margin: 0px;
 }
 
+.questiontarea {
+    width: auto;
+    text-align: center;
+    margin-bottom: 500px;
+}
+
 .questiontable {
     margin: 0 auto;
-    margin-bottom: 500px;
     border-collapse: collapse;
     th, td {
-        border: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
     }
     .id {
         padding: 0 5px 0 5px;
@@ -20,18 +25,26 @@
         text-align: right;
     }
     .jpwords {
+        padding-left: 5px;
         width: 300px;
-        padding-left: 20px;
-        &:hover {
-            cursor: text;
-        }
+        text-align: left;
     }
+}
+
+.jpcheck {
+    float: left;
 }
 
 .jpcontents {
     width: 100%;
+    padding-left: 14px;
     opacity: 0;
     &.disp {
         opacity: 1;
     }
+}
+
+.questionsubmit {
+    padding: 10px;
+    font-size: 24px;
 }

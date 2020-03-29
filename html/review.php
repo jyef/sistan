@@ -7,19 +7,10 @@ if (!isset($_SESSION['join'])) {
     exit();
 }
 
-if (isset($_POST['false'])) {
-    foreach($_POST['false'] as $f) {
-        $statement = $db->prepare('UPDATE mytable SET temp=true, perm=true WHERE id=?');
-        $statement->execute(array($f));
-    }
-    header('Location: review.php');
-    exit();
-}
-
 $start = $_SESSION['join']['start'];
 $end = $_SESSION['join']['end'];
 
-$words = $db->prepare('SELECT * FROM mytable WHERE id BETWEEN ' . $start . ' AND ' . $end . ' ORDER BY RAND()');
+$words = $db->prepare('SELECT * FROM mytable WHERE id BETWEEN ' . $start . ' AND ' . $end . ' AND temp = true ORDER BY RAND()');
 $words->execute();
 ?>
 <!DOCTYPE html>
