@@ -43,6 +43,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'inputnum') {
         exit();
     }
 }
+
+if (isset($_SESSION['join'])) {
+    $start = $_SESSION['join']['start'];
+    $end = $_SESSION['join']['end'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,6 +72,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'inputnum') {
     </form>
     <?php $error['num'] ? print '<p class="warn">'.$error['num'].'</p>' : '' ; ?>
     <?php $error['diff'] ? print '<p class="warn">'.$error['diff'].'</p>' : '' ; ?>
+    <p>
+        <?php if (isset($start)): ?>
+        現在セットされている出題範囲：<?php print($start); ?> 〜 <?php print($end); ?><br>
+        <?php endif ?>
+        <a href="question.php">チェック</a>
+         | <a href="tempreview.php">短期復習</a>
+         | <a href="permreview.php">長期復習</a>
+         | <a href="isolation.php">隔離</a>
+    </p>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>

@@ -31,7 +31,14 @@ $words->execute();
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p><?php print($start); ?> 〜 <?php print($end); ?></p>
+    <p>
+        <?php print($start); ?> 〜 <?php print($end); ?>
+         | <a href="index.php">ホーム</a>
+         | チェック
+         | <a href="tempreview.php">短期復習</a>
+         | <a href="permreview.php">長期復習</a>
+         | <a href="isolation.php">隔離</a>
+    </p>
 
     <div class="questiontarea">
         <form action="" method="post">
@@ -63,6 +70,16 @@ $words->execute();
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+    $('.enwords').on('click', function(){
+        var index = $('.enwords').index(this);
+        var words = document.getElementsByClassName('enwords');
+        var word = words[index].textContent;
+        let u = new SpeechSynthesisUtterance();
+        u.lang = 'en-US';
+        u.text = word;
+        speechSynthesis.speak(u);
+    });
+
     $('.jpwords').mouseover(function(){
         var index = $('.jpwords').index(this);
         var word = $('.jpcontents').eq(index);
