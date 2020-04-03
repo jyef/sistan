@@ -11,6 +11,7 @@
 
 .questiontable {
   margin: 0 auto;
+  margin-bottom: 20px;
   border-collapse: collapse;
 }
 
@@ -29,6 +30,10 @@
   text-align: right;
 }
 
+.questiontable .enwords:hover {
+  cursor: pointer;
+}
+
 .questiontable .jpwords {
   padding-left: 5px;
   width: 300px;
@@ -37,6 +42,11 @@
 
 .jpcheck {
   float: left;
+}
+
+.jpiso {
+  float: left;
+  margin: 0 6px 0 6px;
 }
 
 .jpcontents {

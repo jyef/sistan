@@ -7,6 +7,27 @@ if (!isset($_SESSION['join'])) {
     exit();
 }
 
+if(isset($_POST['false'])){
+    foreach($_POST['false'] as $k => $v){
+        if ($v == 'off') {
+            $statement = $db->prepare('UPDATE mytable SET temp=false WHERE id=?');
+            $statement->execute(array($k));
+        }
+    }
+}
+
+if(isset($_POST['iso'])){
+    foreach($_POST['iso'] as $k => $v){
+        if ($v == 'on') {
+            $statement = $db->prepare('UPDATE mytable SET iso=true WHERE id=?');
+            $statement->execute(array($k));
+        } else {
+            $statement = $db->prepare('UPDATE mytable SET iso=false WHERE id=?');
+            $statement->execute(array($k));         
+        }
+    }
+}
+
 $start = $_SESSION['join']['start'];
 $end = $_SESSION['join']['end'];
 
@@ -22,7 +43,14 @@ $words->execute();
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p><?php print($start); ?> 〜 <?php print($end); ?></p>
+    <p>
+        <?php print($start); ?> 〜 <?php print($end); ?>
+         | <a href="index.php">ホーム</a>
+         | <a href="question.php">チェック</a>
+         | 短期復習
+         | <a href="permreview.php">長期復習</a>
+         | <a href="isolation.php">隔離</a>
+    </p>
 
     <div class="questiontarea">
         <form action="" method="post">
@@ -34,7 +62,16 @@ $words->execute();
                     </td>
                     <td class="jpwords">
                         <div class="jpcheck">
-                            <input type="checkbox" name="false[]" value="<?php print($word['id']); ?>" checked>
+                            <input type="hidden" name="false[<?php print($word['id']); ?>]" value="off">  
+                            <input type="checkbox" name="false[<?php print($word['id']); ?>]" value="on" checked>
+                        </div>
+                        <div class="jpiso">
+                            <input type="hidden" name="iso[<?php print($word['id']); ?>]" value="off">  
+                            <?php if ($word['iso'] === '1'): ?>
+                                <input type="checkbox" name="iso[<?php print($word['id']); ?>]" value="on" checked>
+                            <?php else: ?>
+                                <input type="checkbox" name="iso[<?php print($word['id']); ?>]" value="on">
+                            <?php endif; ?>
                         </div>
                         <div class="jpcontents">
                             <div style="padding: 5px;">
@@ -54,6 +91,16 @@ $words->execute();
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+    $('.enwords').on('click', function(){
+        var index = $('.enwords').index(this);
+        var words = document.getElementsByClassName('enwords');
+        var word = words[index].textContent;
+        let u = new SpeechSynthesisUtterance();
+        u.lang = 'en-US';
+        u.text = word;
+        speechSynthesis.speak(u);
+    });
+
     $('.jpwords').mouseover(function(){
         var index = $('.jpwords').index(this);
         var word = $('.jpcontents').eq(index);
